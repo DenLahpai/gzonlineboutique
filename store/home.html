@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" href="../css/glider.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="Shortcut icon" href="docs/lotus-flower.png"/>
+    <title>Sample Store: Welcome</title>
+</head>
+<body>
+    <header></header>
+    <!-- wrapper -->
+    <div class="wrapper">
+        <!-- container -->
+        <div class="container">
+            <section id="top-banner"></section>
+            <section id="discounts">
+                <div class="sub-title"></div>
+            </section>
+            <section id="fearturing">
+                <div class="sub-title">
+                    <h3>Featuring</h3>
+                </div>
+            </section>
+            <section id="new-arrivals">
+                <div class="sub-title">
+                    <h3>New Arrival</h3>
+                </div>
+            </section>
+            <section id="nav-menu"></section>
+            <section id="nav-bar"></section>
+        </div>
+        <!-- end of container -->
+    </div>
+    <!-- end of wrapper -->
+    <footer></footer>
+</body>
+<script src="../scripts/jquery.js"></script>
+<script src="../scripts/glider.js"></script>
+<script src="../scripts/main.js"></script>
+<script>
+$(document).ready(function () {
+       
+	$.post("incl/header.php", function (data) {
+        $("header").html(data);
+    });
+
+    $.post("incl/select_showcase1.php", function (data) {
+        $("#top-banner").html(data);
+    });
+
+    $.post("incl/select_discounts.php", function (data) {
+        $("#discounts").append(data);
+    })
+
+    $.post("incl/select_showcase2.php", function (data) {
+        $("#fearturing").append(data);
+    });
+
+    $.post("incl/select_new_arrivals.php", function (data) {
+        $("#new-arrivals").append(data);
+    });
+
+    $.post("incl/nav.php", function (data) {
+        $("#nav-bar").html(data);
+    });
+
+    $.post("incl/menu_collection.php", function (data) {
+        $("#nav-menu").html(data);
+    });
+
+    $.post("incl/menu_target.php", function (data) {
+        $("#nav-menu").append(data);
+    });
+
+    $.post("incl/footer.php", function (data) {
+        $("footer").html(data);
+    });    
+});
+</script>
+</html>

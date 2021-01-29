@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="Shortcut icon" href="docs/lotus-flower.png"/>
+	<title>Submit Payment</title>
+</head>
+<body>
+	<!-- wrapper -->
+	<div class="wrapper">
+		<!-- container-->
+		<div class="container">
+			<section id="page-title">
+				<div class="page-title">
+					<h2>Samplestore</h2>
+				</div>
+			</section>
+			<section id="main-data">
+				<h4>Please submit the proof (bank slip or screen shot) of your payment!</h4>
+				<div class="payment-form">
+					<form action="#" method="post" enctype="multipart/form-data">
+						<div style="text-align: center;">
+                            <label for="Image">Upload Image</label>
+                            <input type="file" style="display: none;" id="Image" Name="Image" onchange="imagePreview(this);">
+                        </div>
+                        <div style="text-align: center;">
+                            <button type="button" id="btn-submit" class="medium-button">Submit</button>
+                        </div>
+                        <div class="image_preview" style="text-align: center;">
+                            <img id="image_preview">
+                        </div>
+					</form>
+				</div>
+			</section>			
+		</div>
+		<!-- end of container -->
+	</div>
+	<!-- end of wrapper -->
+	<footer></footer>
+</body>
+<script src="../scripts/jquery.js"></script>
+<script src="../scripts/scripts.js"></script>
+<script>
+$(document).ready(function (data) {
+	const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+	const link = urlParams.get('link');
+
+	$.post("incl/footer.php", function (data) {
+        $("footer").html(data);
+    });
+	
+	$("#btn-submit").on("click", function (e) {
+		e.preventDefault();
+		if ($("#Image").val() == null || $("#Image").val() == "") {
+			alert("Please choose an image file to upload!");
+		}
+		else {
+			var fdata = new FormData();
+            var files = $("#Image")[0].files[0];
+			fdata.append('Image', files);
+			$.ajax ({
+				url: "incl/submit_payment.php?link=" + link,
+				type: "post",
+				data: fdata,
+				contentType: false,
+				processData: false,
+				success: function (data) {
+					if (!data) {
+						window.location.href = 'thank_you.html';
+					}
+					else {
+						alert(data);
+					}
+				}
+			});
+		}
+	});
+});
+</script>
+</html>
